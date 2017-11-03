@@ -13,11 +13,11 @@
 # limitations under the License.
 
 WORK_DIR=$(pwd)
-LOG_DIR=/var/kube/log
+LOG_DIR=/var/log/kube
 MASTER=16.187.145.35
 NODE_IP=16.187.145.38
 
-if [ ! -d $LOG_DIR ];then
+if [ ! -d $LOG_DIR ]; then
     mkdir -p $LOG_DIR
 fi
 
@@ -25,6 +25,8 @@ $WORK_DIR/kubelet \
   --address=$NODE_IP \
   --port=10250 \
   --hostname_override=$NODE_IP \
+  --cluster-dns=10.0.0.10 \
+  --cluster-domain=cluster.local \
   --api-servers=http://$MASTER:8080 \
   --v=2 >> $LOG_DIR/kubelet.log 2>&1 &
 

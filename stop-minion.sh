@@ -13,7 +13,7 @@
 # limitations under the License.
 
 WORK_DIR=$(pwd)
-LOG_DIR=/var/kube/log
+LOG_DIR=/var/log/kube
 
 kubelet_pid=$(ps -ef | grep kubelet | grep -v grep | awk '{print $2}')
 kubeproxy_pid=$(ps -ef | grep kube-proxy | grep -v grep | awk '{print $2}')

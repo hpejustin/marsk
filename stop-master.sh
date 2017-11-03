@@ -13,7 +13,7 @@
 # limitations under the License.
 
 WORK_DIR=$(pwd)
-LOG_DIR=/var/kube/log
+LOG_DIR=/var/log/kube
 
 api_server_pid=$(ps -ef | grep kube-apiserver | grep -v grep | awk '{print $2}')
 controller_manager_pid=$(ps -ef | grep kube-controller-manager | grep -v grep | awk '{print $2}')
@@ -30,4 +30,4 @@ kill -9 $etcd_pid
 echo "[$(date)] etcd stopped."
 
 rm -rf $LOG_DIR/*
-rm -rf $WORK_DIR/data/*
+# rm -rf $WORK_DIR/data/*
