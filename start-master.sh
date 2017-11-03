@@ -15,7 +15,7 @@
 WORK_DIR=$(pwd)
 LOG_DIR=/var/log/kube
 
-if [ ! -d $LOG_DIR ];then
+if [ ! -d $LOG_DIR ]; then
     mkdir -p $LOG_DIR
 fi
 
