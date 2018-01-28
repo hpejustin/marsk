@@ -12,10 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+set -e
+
 WORK_DIR=$(pwd)
-LOG_DIR=/var/log/kube
-MASTER=16.187.145.35
-NODE_IP=16.187.145.38
+LOG_DIR=$WORK_DIR/log
+MASTER=172.17.101.27
+NODE_IP=172.17.101.27
+
+echo "[$(date)] work dir: $WORK_DIR"
+echo "[$(date)] log dir: $LOG_DIR"
 
 if [ ! -d $LOG_DIR ]; then
     mkdir -p $LOG_DIR
@@ -25,15 +30,16 @@ $WORK_DIR/kubelet \
   --address=$NODE_IP \
   --port=10250 \
   --hostname_override=$NODE_IP \
-  --cluster-dns=10.0.0.10 \
-  --cluster-domain=cluster.local \
+  --cluster_dns=172.17.1.10 \
+  --cluster_domain=cluster.local \
   --api-servers=http://$MASTER:8080 \
   --v=2 >> $LOG_DIR/kubelet.log 2>&1 &
 
-echo "[$(date)] kubelet stated."
+echo "[$(date)] kubelet stated successfully."
 
 $WORK_DIR/kube-proxy \
   --master=http://$MASTER:8080 \
   --v=2 >> $LOG_DIR/kube-proxy.log 2>&1 &
 
-echo "[$(date)] kube-proxy started."
+echo "[$(date)] kube-proxy started successfully."
+echo "[$(date)] minion $NODE_IP started."
